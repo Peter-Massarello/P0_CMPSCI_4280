@@ -5,13 +5,13 @@
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
+#include "node.hpp"
 using namespace std;
 
-void readFromKeyBoard();
-void openFile(string fileName);
-void readFromFile(ifstream &file);
-void printInorder(ofstream &file);
-void printPostorder(ofstream &file);
-void printPreorder(ofstream &file);
+void printInorder(ofstream &file, Node* &root);
+void printPostorder(ofstream &file, Node* &root);
+void printPreorder(ofstream &file, Node* &root);
+Node* buildTree(string filename);
+Node* buildTree();
 
 #endif

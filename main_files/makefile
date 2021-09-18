@@ -4,10 +4,9 @@ CFLAGS  = -g -Wall -lstdc++
  
 all: P0
 
-P0: main.cpp tree.cpp tree.hpp node.hpp
+P0: node.hpp tree.cpp tree.hpp main.cpp 
 	$(CC) -o $@ $^ $(CFLAGS) 
  
 clean:
-	rm P0
+	rm P0 *.inorder *.postorder *.preorder
 	rm -r *.dSYM
-	rm *.inorder *.postorder *.preorder
