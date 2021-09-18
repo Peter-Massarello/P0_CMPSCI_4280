@@ -47,20 +47,20 @@ void insertNode(string value, Node* root){
 
     //if current key is equal to the root, place
     if(key == root->key){
-        root->chars.push_back(value.substr(1, value.size()));
+        root->chars.push_back(value);
     }else{
         //if key is greater put in right node
         if (key > root->key){
             if (root->right == NULL){ //if right node is empty, place
                 root->right = new Node(key);
-                root->right->chars.push_back(value.substr(1, value.size()));
+                root->right->chars.push_back(value);
             } else //if key is already full go through right tree
                 insertNode(value, root->right);
             
         } else { //if key is less put in left node
             if (root->left == NULL){ //if left root is empty, place
                 root->left = new Node(key);
-                root->left->chars.push_back(value.substr(1, value.size()));
+                root->left->chars.push_back(value);
             } else //if key is already full go through left tree
                 insertNode(value, root->left);
         }
@@ -81,7 +81,7 @@ Node* buildTree(){
     
     //initialize root
     root = new Node(word[0]);
-    root->chars.push_back(word.substr(1, word.size()));
+    root->chars.push_back(word);
 
     return loopThroughWordListAndInsert(wordList, root);
 }
@@ -93,20 +93,75 @@ Node* buildTree(string fileName){
 
     //initialize root
     root = new Node(word[0]);
-    root->chars.push_back(word.substr(1, word.size()));
+    root->chars.push_back(word);
 
    return loopThroughWordListAndInsert(wordList, root);
 }
 
+void printRootLevelToFile(ofstream &file, Node* &root, int level){
+    //create initial level text and tab over per how many levels deep
+    file << level << ": ";
+    for (int i = 0; i <= level; i++){
+        file << "\t";
+    }
 
-void printInorder(ofstream &file, Node* &root){
-    cout << "HellO?" << endl;
+    //add roots key to the current line    
+    file << root->key<< " " << endl;
+
+    //create second line for keys elements by tabbing over
+    for (int i = 0; i <= level; i++){
+        file << "\t";
+    }
+
+    //for each word in nodes elements array, add to new line
+    for (int i = 0; i < root->chars.size(); i++) {
+        if (i == 0){
+            file << "\t";
+        }   
+        file << root->chars.at(i) << " ";
+    }
+
+    file << endl << endl;
 }
 
-void printPostorder(ofstream &file, Node* &root){
-     cout << "HellO?" << endl;
+// left root right
+void printInorder(ofstream &file, Node* &root, int level){
+    if (root == NULL) return;
+
+    //left substree
+    printInorder(file, root->left, level+1);
+
+    //root
+    printRootLevelToFile(file, root, level);    
+
+    //right subtree
+    printInorder(file, root->right, level+1);
 }
 
-void printPreorder(ofstream &file, Node* &root){
-     cout << "HellO?" << endl;
+// left right root
+void printPostorder(ofstream &file, Node* &root, int level){
+    if (root == NULL) return;
+
+    //left substree
+    printInorder(file, root->left, level+1);
+
+    //right subtree
+    printInorder(file, root->right, level+1);
+
+    //root
+    printRootLevelToFile(file, root, level);    
+}
+
+// root left right
+void printPreorder(ofstream &file, Node* &root, int level){
+    if (root == NULL) return;
+
+    //root
+    printRootLevelToFile(file, root, level);  
+
+    //left substree
+    printInorder(file, root->left, level+1);  
+
+    //right subtree
+    printInorder(file, root->right, level+1);
 }

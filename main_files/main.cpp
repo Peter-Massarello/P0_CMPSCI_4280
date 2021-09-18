@@ -18,13 +18,13 @@ int main(int argc, char **argv){
     ofstream postOrder(fileName + ".postorder");
     ofstream preOrder(fileName + ".preorder");
 
-    printInorder(inOrder, root);
-    printPostorder(postOrder, root);
-    printPreorder(preOrder, root);
+    printInorder(inOrder, root, 0);
+    printPostorder(postOrder, root, 0);
+    printPreorder(preOrder, root, 0);
 
     inOrder.close();
     postOrder.close();
     preOrder.close();
 
     return 0;
-} 
+}
