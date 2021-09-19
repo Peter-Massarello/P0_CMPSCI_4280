@@ -1,6 +1,13 @@
+/*
+Name: Peter Massarello
+Instructor: Mark Hauschild
+Assignment: P0
+Date: September 20th 2021
+*/
 #include "tree.hpp"
 using namespace std;
 
+// Reads from keyboard and returns a vector of all strings given
 vector<string> readFromKeyBoard(){
     string line;
     vector<string> wordList;
@@ -12,6 +19,7 @@ vector<string> readFromKeyBoard(){
     return wordList;
 }
 
+// Reads from keyboard and returns a vector of all strings given
 vector<string> readFromFile(ifstream &file){
     string word;
     vector<string> wordList;
@@ -19,16 +27,16 @@ vector<string> readFromFile(ifstream &file){
     {   
         wordList.push_back(word);
     }
-    for (int i = 0; i < wordList.size(); i++){
-        cout << wordList.at(i) << endl;
-    }
+
     return wordList;
 }
 
+// Opens the file of a specfic filename and reads from that file to get the words in there
 vector<string> openFile(string fileName){
     ifstream file(fileName);
     vector<string> wordList;
 
+    // Tries to open file, catches error if cannot and exits
     try {
         if (file)
             wordList = readFromFile(file);
@@ -36,12 +44,15 @@ vector<string> openFile(string fileName){
             throw -1;
     } catch(int error){
         cout << "ERROR: File could not be found, existing...\n";
+        exit(1);
+        
     }
     
     file.close();
     return wordList;
 }
 
+// Inserts value into node on tree
 void insertNode(string value, Node* root){
     char key = value[0];
 
@@ -67,37 +78,41 @@ void insertNode(string value, Node* root){
     }
 }
 
+// Loop through entire wordList vector and insert word to node
 Node* loopThroughWordListAndInsert(vector<string> wordList, Node* root){
-    for(int i = 1; i < wordList.size(); i++){
+    for(INT i = 1; i < wordList.size(); i++){
         insertNode(wordList.at(i), root);
     }
     return root;
 }
 
+// Build tree without file given
 Node* buildTree(){
-    vector<string> wordList = readFromKeyBoard();
-    string word = wordList.at(0);
+    vector<string> wordList = readFromKeyBoard(); // Read from keyboard to gain word list
+    string word = wordList.at(0); // Take first word to initalize root
     Node* root;
     
     //initialize root
     root = new Node(word[0]);
     root->chars.push_back(word);
 
-    return loopThroughWordListAndInsert(wordList, root);
+    return loopThroughWordListAndInsert(wordList, root); // Loop through rest of list and insert to root, then return
 }
 
+// Build tree with file given
 Node* buildTree(string fileName){
-    vector<string> wordList = openFile(fileName);
-    string word = wordList.at(0);
+    vector<string> wordList = openFile(fileName); // Try to open file
+    string word = wordList.at(0); // Take first word to initalize root
     Node* root;
 
     //initialize root
     root = new Node(word[0]);
     root->chars.push_back(word);
 
-   return loopThroughWordListAndInsert(wordList, root);
+   return loopThroughWordListAndInsert(wordList, root); // Loop through rest of list and insert to root, then return
 }
 
+// Prints current node level to file
 void printRootLevelToFile(ofstream &file, Node* &root, int level){
     //create initial level text and tab over per how many levels deep
     file << level << ": ";
@@ -114,7 +129,7 @@ void printRootLevelToFile(ofstream &file, Node* &root, int level){
     }
 
     //for each word in nodes elements array, add to new line
-    for (int i = 0; i < root->chars.size(); i++) {
+    for (INT i = 0; i < root->chars.size(); i++) {
         if (i == 0){
             file << "\t";
         }   
@@ -164,4 +179,15 @@ void printPreorder(ofstream &file, Node* &root, int level){
 
     //right subtree
     printInorder(file, root->right, level+1);
+}
+
+//Removes bst from memory by recursion traversal
+void deleteTree(Node* &root){
+    if (root == NULL) return;
+    
+    deleteTree(root->left);
+    deleteTree(root->right);
+
+    delete root;
+    root = NULL;
 }
