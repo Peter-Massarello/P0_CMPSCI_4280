@@ -53,13 +53,23 @@ vector<string> openFile(string fileName){
     return wordList;
 }
 
+bool noDuplicates(string value, Node* root){
+    for(INT i = 0; i < root->chars.size(); i++){
+        if (value == root->chars.at(i))
+            return false;
+        else
+            return true;
+    }
+}
+
 // Inserts value into node on tree
 void insertNode(string value, Node* root){
     char key = value[0];
 
     //if current key is equal to the root, place
     if(key == root->key){
-        root->chars.push_back(value);
+        if (noDuplicates(value, root))
+            root->chars.push_back(value);
     }else{
         //if key is greater put in right node
         if (key > root->key){
