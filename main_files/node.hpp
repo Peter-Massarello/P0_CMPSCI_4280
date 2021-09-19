@@ -3,6 +3,7 @@ Name: Peter Massarello
 Instructor: Mark Hauschild
 Assignment: P0
 Date: September 20th 2021
+Class: CMPSCI 4280
 */
 #ifndef NODE_H
 #define NODE_H

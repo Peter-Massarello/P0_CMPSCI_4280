@@ -3,6 +3,7 @@ Name: Peter Massarello
 Instructor: Mark Hauschild
 Assignment: P0
 Date: September 20th 2021
+Class: CMPSCI 4280
 */
 #include "tree.hpp"
 #include "node.hpp"
@@ -10,7 +11,7 @@ Date: September 20th 2021
 using namespace std;
 
 int main(int argc, char **argv){
-    string fileName = "file";
+    string fileName = "output";
     Node *root;
 
     // Read from command line and determine path based on arg count
