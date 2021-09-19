@@ -11,7 +11,7 @@ using namespace std;
 vector<string> readFromKeyBoard(){
     string line;
     vector<string> wordList;
-    while (getline(cin, line))
+    while (cin>>line) // read input until none are left in stdin
     {
         wordList.push_back(line);
     }
@@ -23,7 +23,7 @@ vector<string> readFromKeyBoard(){
 vector<string> readFromFile(ifstream &file){
     string word;
     vector<string> wordList;
-    while (file >> word)
+    while (file >> word) // Read from file until no words are left
     {   
         wordList.push_back(word);
     }
@@ -121,18 +121,10 @@ void printRootLevelToFile(ofstream &file, Node* &root, int level){
     }
 
     //add roots key to the current line    
-    file << root->key<< " " << endl;
-
-    //create second line for keys elements by tabbing over
-    for (int i = 0; i <= level; i++){
-        file << "\t";
-    }
+    file << root->key<< ": ";
 
     //for each word in nodes elements array, add to new line
     for (INT i = 0; i < root->chars.size(); i++) {
-        if (i == 0){
-            file << "\t";
-        }   
         file << root->chars.at(i) << " ";
     }
 
