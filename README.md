@@ -11,6 +11,7 @@ How to build:
     - run make file to compile all files (command: make)
 
 How to run:
+
     - ./P0 [filename] 
         - Contains optional argument "filename". If run without optional arg, takes input from stdin, otherwise reads from "filename"
     
