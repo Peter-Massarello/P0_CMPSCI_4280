@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS  = -g -Wall -lstdc++
+CFLAGS  = -g -Wall -std=c++11 -lstdc++
  
 all: P0
 
