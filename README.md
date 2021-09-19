@@ -1,10 +1,10 @@
 # Project 0
 
-Name:        Peter Massarello
-Date:        September 20th 2021
-Class:       CMPSCI 4280
-Professor:   Mark Hauschild
-Assignment:  P0 (written in C++)
+ - Name:        Peter Massarello
+ - Date:        September 20th 2021
+ - Class:       CMPSCI 4280
+ - Professor:   Mark Hauschild
+ - Assignment:  P0 (written in C++)
 
 # How to build:
     - CD to main_files directory (command: cd main_files)
